@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.closet.closet.mapper.UserMapper">
+
+	<resultMap id="UserMap" type="User">
+		<result property="userId" column="USER_ID"/>
+		<result property="deleted" column="DELETED"/>
+		<result property="phone" column="PHONE"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="rgstDate" column="RSGT_DATE"/>		
+	</resultMap>
+
+	<select id="getUser" parameterType="String" resultMap="UserMap" >
+		SELECT * FROM USER
+			WHERE USER_ID = #{userId}
+	</select>
+
+  	<insert id="insertUser" parameterType="User">
+  		INSERT INTO
+  			USER
+  			(USER_ID
+  			, DELETED
+  			, PHONE
+  			, USER_NAME
+  			) VALUES  
+  			(#{userId}
+  			,'N'
+  			,#{phone}
+  			,#{userName}
+  			)
+  	</insert>
+  	
+  	<update id="updateUser" parameterType="User">
+  		UPDATE USER
+  			SET PHONE = #{phone}
+  			AND USER_NAME = #{userName}
+  		WHERE USER_ID = #{userId}
+  	</update>
+</mapper>
