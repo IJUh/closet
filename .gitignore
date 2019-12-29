@@ -4,6 +4,9 @@
 # Log file
 *.log
 
+# password file
+application-context.xml
+
 # BlueJ files
 *.ctxt
 
