@@ -24,7 +24,7 @@
 
         <bean id="ViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
             <property name="prefix" value="/WEB-INF/pages/"/>
-            <property name="suffix" value=".html"/>
+            <property name="suffix" value=".jsp"/>
             <property name="contentType" value ="UTF-8"/>
         </bean>
 
@@ -32,7 +32,18 @@
 	        class="org.springframework.context.support.ResourceBundleMessageSource">
 	        <property name="basename" value="messages" />
 	    </bean>
-
+	    
+	    <!-- Interceptor 설정 -->
+    	<mvc:interceptors>
+    		<mvc:interceptor> 
+    		<mvc:mapping path="/**"/> 
+    		<mvc:exclude-mapping path="/loginProcess"/>
+    		<bean class="interceptor.AuthenticationInterceptor"/> 
+    		</mvc:interceptor>
+    	</mvc:interceptors>	
+	    
+	    <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+    	<!-- <resources mapping="/resources/**" location="/resources/" />-->
 	   <!-- 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations" value="classpath:/mapper/**/*_SQL.xml" />

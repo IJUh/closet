@@ -11,6 +11,11 @@
 		<result property="userName" column="USER_NAME"/>
 		<result property="rgstDate" column="RSGT_DATE"/>		
 	</resultMap>
+	
+	<resultMap id="ClothMap" type="Cloth">
+		<result property="itemNo" column="ITEM_NO"/>	
+		<result property="comItemNo" column="COM_ITEM_NO"/>
+	</resultMap>
 
 	<select id="getUser" parameterType="String" resultMap="UserMap" >
 		SELECT * FROM USER
@@ -38,4 +43,9 @@
   			AND USER_NAME = #{userName}
   		WHERE USER_ID = #{userId}
   	</update>
+  	
+  	<select id="getClothList" parameterType="String" resultMap="ClothMap" >
+		SELECT * FROM CLOTH_TRACK
+			WHERE USER_ID = #{userId}
+	</select>
 </mapper>

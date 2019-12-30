@@ -6,14 +6,18 @@
 
 	<resultMap id="ClothMap" type="Cloth">
 		<result property="itemNo" column="ITEM_NO"/>	
+		<result property="comItemNo" column="COM_ITEM_NO"/>
 	</resultMap>
 
 	<insert id="insertCloth" parameterType="Cloth">
+		<selectKey resultType="string" keyProperty="itemNo" order="BEFORE">
+        	SELECT TO_CHAR(SYSDATE,'YYYY') || #{comItemNo}  FROM CLOTH        
+    	</selectKey>  
   		INSERT INTO
   			CLOTH
-  			(ITEM_NO
+  			(COM_ITEM_NO
   			) VALUES  
-  			(#{itemNo}
+  			(#{comItemNo}
   			)
   	</insert>
   	

@@ -1,8 +1,7 @@
-package service.impl;
+package service;
 
 import model.User;
 
-public interface UserDao {
+public interface LoginService {
 	public User login(User user);
-	
 }

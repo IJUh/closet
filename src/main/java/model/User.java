@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 //@Alias("User")
 public class User {
 	private String userId;		//회원번호
+	private String loginStatus;	//로그인상태
+	private String password;	//비밀번호
 	private String deleted;	//삭제여부
 	private String phone;	//전화번호
 	private String userName;//이름
@@ -43,5 +45,17 @@ public class User {
 	}
 	public void setRgstDate(Timestamp rgstDate) {
 		this.rgstDate = rgstDate;
+	}
+	public String getLoginStatus() {
+		return loginStatus;
+	}
+	public void setLoginStatus(String loginStatus) {
+		this.loginStatus = loginStatus;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>쇼핑목록</title>
+	<script type="text/javascript" src="/resources/js/main.js">
+	</script>
+</head>
+<body>
+	<div class="regi">
+		<form id="sform" action="/register/cloth" method="post">
+			<fieldset>
+				<legend class="blind">옷등록</legend>
+				<span class="search_window">
+		            <input id="query" name="query" type="text" title="검색어 입력" maxlength="255" class="input_text" tabindex="1" accesskey="s" style="ime-mode:active;" autocomplete="off" value="">
+		        </span>
+		        <button id="search_btn" type="submit" title="검색" tabindex="3" class="sch_smit" onmouseover="this.className='sch_smit over'" onmousedown="this.className='sch_smit down'" onmouseout="this.className='sch_smit'" onclick="clickcr(this,'sch.action','','',event);"><span class="blind">검색</span><span class="ico_search_submit"></span></button>
+			 </fieldset>
+		</form>	
+	</div>
+</body>
+</html>																
