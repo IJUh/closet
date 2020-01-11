@@ -7,6 +7,14 @@
 # password file
 application-context.xml
 
+#wallet-file
+cwallet.sso
+ewallet.p12
+keystore.jks
+sqlnet.ora
+tnsnames.ora
+truststore.jks
+
 # BlueJ files
 *.ctxt
 

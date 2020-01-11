@@ -13,9 +13,12 @@ public class UserDaoServiceImpl implements UserDao {
 	@Inject
 	SqlSession sqlSession;
 	
-	@Override
 	public User login(User user) {
 		return sqlSession.selectOne("com.closet.closet.mapper.UserMapper.getUser",user);
+	}
+
+	public int Register(User user) {
+		return sqlSession.insert("com.closet.closet.mapper.UserMapper.insertUser", user);
 	}
 	
 

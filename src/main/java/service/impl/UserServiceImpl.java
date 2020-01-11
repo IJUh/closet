@@ -2,8 +2,7 @@ package service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +17,25 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private User user;
 	
-	@Inject
+	@Autowired
 	private SqlSession sqlSession;
 
-	@Override
 	public void setUserMapper(User user) {
-		//sqlSessionFactory.openSession().insert("com.closet.closet.mapper.UserMapper.insertUser",user);
+		sqlSession.insert("com.closet.closet.mapper.UserMapper.insertUser",user);
 	}
 
-	@Override
 	public User getUser() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.closet.closet.mapper.UserMapper.getUser","qqq");
 	}
 
-	@Override
 	public List<ArrayList> getRegisterClothList(User loginUser) {
 		return sqlSession.selectList("com.closet.closet.mapper.UserMapper.getClothList", loginUser);
+	}
+
+	@Override
+	public String checkDuplicateUser(User user) {
+		return sqlSession.selectOne("com.closet.closet.mapper.UserMapper.checkUser", user);
 	}
 	
 

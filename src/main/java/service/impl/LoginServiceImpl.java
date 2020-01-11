@@ -12,8 +12,11 @@ public class LoginServiceImpl implements LoginService {
 	@Inject
 	UserDao userDao;
 	
-	@Override
 	public User login(User user) {
 		return userDao.login(user);
+	}
+
+	public int Register(User user) {
+		return userDao.Register(user);
 	}
 }
