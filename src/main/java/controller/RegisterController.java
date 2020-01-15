@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import exception.InvalidRegisterAccessException;
+import exception.InvalidRegisterException;
 import model.Cloth;
+import model.ErrorCode;
+import model.ErrorResponse;
 import model.User;
 import service.ClothService;
 import service.LoginService;
@@ -125,35 +129,29 @@ public class RegisterController {
 	@RequestMapping(value="/register/user", method=RequestMethod.POST)
 	public ModelAndView registerUser(HttpSession session, @RequestParam String is_checked, @ModelAttribute User user, HttpServletResponse response) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		
-		//login을 쓸지 user를 쓸지 통일해야함! java 패턴도 공부할 것
-		//userService.setUserMapper(user);
-		
+
 		//중복 체크를 했으면 등록
 		if("1".equals(is_checked)) {
 			int login = loginService.Register(user);
 			
-			if(login != -1) {
-				mv.setViewName("sign_up");
-			} else {
-
+			//등록하지 못했으면 에러
+			if(login > 0) {
+				throw new InvalidRegisterException("시스템 내부 사정으로 회원가입하지 못 했습니다. 다시 시도해주시기 바랍니다.",ErrorCode.SIGN_UP_INPUT_INVALID);
+			}
+			else {
 				if(session.getAttribute("login") != null) {
 					session.removeAttribute("login");
 				}
 				//로그인 정보 존재 시 세션에 로그인 정보 담기
-				
-
 				User loginUser = loginService.login(user);
 				
 				session.setAttribute("login", loginUser);
 				mv.setViewName("main");
 			}
 		} else {
-			throw new Exception();
+			//아이디 중복확인 미실행 후 등록 잘못된 접근방식으로 오류 처리
+			throw new InvalidRegisterAccessException("아이디 중복확인 후 회원가입 가능합니다.",ErrorCode.SIGN_UP_ACCESS_INVALID);
 		}
-		
-		
-		
 		return mv;
 	}
 	

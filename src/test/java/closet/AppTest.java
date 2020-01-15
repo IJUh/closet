@@ -19,11 +19,11 @@ public class AppTest {
 	
     @Test
     public void testFactory(){
-    	User user = new User();
+    	/*User user = new User();
     	user.setUserId("bepanthol");
     	user.setUserName("∫Ò∆«≈Á");
     	user.setDeleted("Y");
     	user.setPhone("010-1234-5678");
-    	sqlSessionFactory.openSession().insert("com.closet.closet.mapper.UserMapper.insertUser", user);
+    	sqlSessionFactory.openSession().insert("com.closet.closet.mapper.UserMapper.insertUser", user);*/
     }
 }

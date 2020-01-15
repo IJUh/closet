@@ -48,8 +48,8 @@
     	<!-- ============================================================= -->
 		<!-- exception resolver -->
 		<!-- ============================================================= -->
-		<bean id="myException" class="exception.MyMappingExceptionResolver">
-		</bean>    
+		<!-- <bean id="myException" class="exception.MyMappingExceptionResolver">
+		</bean> -->    
 		
 		<!-- <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		    <property name="exceptionMappings">

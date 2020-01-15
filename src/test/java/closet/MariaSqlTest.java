@@ -19,13 +19,13 @@ public class MariaSqlTest {
  
     @Test
     public void testConnection() throws Exception {
-        try (Connection con = ds.getConnection()) {
+        /*try (Connection con = ds.getConnection()) {
  
             System.out.println("\n >>>>>>>>>> Connection Ãâ·Â : " + con + "\n");
  
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
     
 }

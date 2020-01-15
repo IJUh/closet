@@ -72,8 +72,8 @@ window.onload = function() {
 	var check =  document.getElementById("check_id");
 	if(check != null) {
 		check.addEventListener("click", function() {
-		var user_id =  document.getElementById("sign_up_id").value;
-		var param = {"userId" : user_id};
+		var userId =  document.getElementById("sign_up_id").value;
+		var param = {"userId" : userId};
 		  $.ajax({
 		    headers: { 
 		        'Accept': 'application/json',
@@ -92,6 +92,34 @@ window.onload = function() {
 		    error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
 		  });
+		});
+	}
+
+	var signUpComp = document.getElementById("sign_up_btn");
+	if(signUpComp != null) {
+		signUpComp.addEventListener("click", function(e) {
+			
+			var userId =  document.getElementById("sign_up_id");
+			var sign_up_password =  document.getElementById("sign_up_password");
+			var sign_up_phone =  document.getElementById("sign_up_phone");
+			var is_checked =  document.getElementById("is_checked");
+			
+			if(regiForm.userId.value.length == 0) {
+				alert("아이디를 입력하세요."); 
+				e.preventDefault();
+			}
+			if(regiForm.password.value.length == 0) {
+				alert("비밀번호를 입력하세요."); 
+				e.preventDefault();
+			}
+			if(!regiForm.phone.value) {
+				alert("전화번호를 입력하세요."); 
+				e.preventDefault();
+			}
+			if(is_checked.value != 1) {
+				alert("아이디 중복체크 후 회원가입이 가능합니다.");
+				e.preventDefault();
+			}
 		});
 	}
 };

@@ -13,7 +13,7 @@
 			<fieldset>
 				<legend class="blind">회원가입</legend>
 				<span class="sign_up_id">
-		            	아이디<input id="sign_up_id" name="user_id" type="text" title="아이디"/>
+		            	아이디<input id="sign_up_id" name="userId" type="text" title="아이디"/>
 		            	<input id="is_checked" type="hidden" name="is_checked" title="체크여부확인"></input>
 		        </span>
 		        <span class="duplicate_check">

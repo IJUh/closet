@@ -25,19 +25,20 @@
 	</select>
 
   	<insert id="insertUser" parameterType="User">
-  		INSERT INTO
-  			USERINFO
-  			(USER_ID
+  		INSERT INTO USERINFO
+  			(
+  			  USER_ID
   			, PASSWORD
   			, PHONE
   			, DELETED_YN
-  			, E-MAIL
+  			, E_MAIL
   			) VALUES  
-  			(#{userId}
-  			,#{password}
-  			,#{phone}
+  			(
+  			 #{userId, jdbcType=VARCHAR}
+  			,#{password, jdbcType=VARCHAR}
+  			,#{phone, jdbcType=VARCHAR}
   			,'N'
-  			, #{userId}
+  			, #{userId, jdbcType=VARCHAR}
   			)
   	</insert>
   	

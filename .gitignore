@@ -14,6 +14,7 @@ keystore.jks
 sqlnet.ora
 tnsnames.ora
 truststore.jks
+ojdbc.properties
 
 # BlueJ files
 *.ctxt
@@ -33,3 +34,6 @@ truststore.jks
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /target/
+
+#java
+ErrorResponse.java
