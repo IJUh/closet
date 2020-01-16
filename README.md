@@ -1,13 +1,12 @@
 # closet
 
-
 프로젝트 개요 및 스펙
-회원 별 추적하고 싶은 상품번호를 등록하면 쇼핑몰에서 주기적으로 크롤링하면서 상품번호의 가격 변동성을 알려주는 사이트
+ - 회원 별 추적하고 싶은 상품번호를 등록하면 쇼핑몰에서 주기적으로 크롤링하면서 상품번호의 가격 변동성을 알려주는 사이트
 
 기술적인 특성 및 구성
-DB : Oracle Cloud ADW
-사용언어 : JAVA, JavaScript
-툴 : eclipse, jdk10, tomcat 9, sqlDeveloper 
+- DB : Oracle Cloud ADW
+- 사용언어 : JAVA, JavaScript
+- 툴 : eclipse, jdk10, tomcat 9, sqlDeveloper 
 
 사용한 기술 스텍과 라이브러리
 JQuery
@@ -24,4 +23,3 @@ JQuery
 진행단계 
 1.16 - 로그인, 회원가입 기능 구현
 차주 : 크롤링 기능 학습 후 특정 쇼핑몰에서 크롤링 후 DB 적재까지 구현 예정, TDD를 조금씩 적용할 예정
-
