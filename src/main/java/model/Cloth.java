@@ -4,12 +4,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Cloth {
-	private String itemNo;		//Ç°¹ø
-	private String companyNo;	//È¸»ç¹øÈ£
-	private String comItemNo;	//È¸»çÀÚÃ¼Ç°¹ø
-	private long price;			//°¡°İ
-	private String category;	//ºĞ·ù
-	private String clothName;	//¿ÊÁ¦Ç°¸í
+	private String itemNo;		//í’ˆë²ˆ
+	private String companyNo;	//íšŒì‚¬ë²ˆí˜¸
+	private String comItemNo;	//íšŒì‚¬ìì²´í’ˆë²ˆ
+	private long price;			//ê°€ê²©
+	private String category;	//ë¶„ë¥˜
+	private String clothName;	//ì˜·ì œí’ˆëª…
 	
 	public String getItemNo() {
 		return itemNo;

@@ -4,9 +4,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Company {
-	private String companyNo;		//회사번호
-	private String companyName;		//회사명
-	private String address;			//주소
+	private String companyNo;		
+	private String companyName;		
+	private String address;			
 	
 	public String getCompanyNo() {
 		return companyNo;

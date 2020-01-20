@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class clothTrack {
 	
-	private String userId;	//È¸¿ø¹øÈ£
-	private String itemNo;	//Ç°¹ø
-	private String trackNo;	//ÃßÀû½Ã½ºÅÛµî·ÏÀÏ·Ã¹øÈ£
-	private Timestamp rsgtDate;	//µî·ÏÀÏ½Ã
-	private String deleted;	//»èÁ¦¿©ºÎ
-	private int priority;	//¿ì¼±¼øÀ§
-	private int cycle;		//ÁÖ±â
+	private String userId;	//íšŒì›ë²ˆí˜¸
+	private String itemNo;	//í’ˆë²ˆ
+	private String trackNo;	//ì¶”ì ì‹œìŠ¤í…œë“±ë¡ì¼ë ¨ë²ˆí˜¸
+	private Timestamp rsgtDate;	//ë“±ë¡ì¼ì‹œ
+	private String deleted;	//ì‚­ì œì—¬ë¶€
+	private int priority;	//ìš°ì„ ìˆœìœ„
+	private int cycle;		//ì£¼ê¸°
 	
 	public String getUserId() {
 		return userId;

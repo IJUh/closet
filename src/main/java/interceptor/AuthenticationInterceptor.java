@@ -6,25 +6,24 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-///·Î±×ÀÎ Ã³¸®¸¦ ´ã´çÇÏ´Â ÀÎÅÍ¼ÁÅÍ
+//ë¡œê·¸ì¸ ì„¸ì…˜ ì²˜ë¦¬ë¥¼ ë‹´ë‹¹í•˜ëŠ” ì¸í„°ì…‰í„°
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 
-	// preHandle() : ÄÁÆ®·Ñ·¯º¸´Ù ¸ÕÀú ¼öÇàµÇ´Â ¸Ş¼­µå
+	// preHandle() : ì»¨íŠ¸ë¡¤ëŸ¬ë³´ë‹¤ ë¨¼ì € ìˆ˜í–‰ë˜ëŠ” ë©”ì„œë“œ
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		// TODO Auto-generated method stub
 		if(request.getSession().getAttribute("login") != null) {
-		//·Î±×ÀÎÀÌ µÆÀ¸¸é
+		//ë¡œê·¸ì¸ì´ ëìœ¼ë©´
 			response.sendRedirect("/");
-			//login°´Ã¼°¡ ¾ø±â ¶§¹®¿¡ loginÈ­¸éÀ¸·Î ÀÌµ¿
+			//loginê°ì²´ê°€ ì—†ê¸° ë•Œë¬¸ì— loginí™”ë©´ìœ¼ë¡œ ì´ë™
 			return false;		
 		}
-		return true;	//¿ø·¡ È£ÃâÇÏ·Á´ø uri È£Ãâ
+		return true;	//ì›ë˜ í˜¸ì¶œí•˜ë ¤ë˜ uri í˜¸ì¶œ
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,ModelAndView modelAndView) throws Exception {
-		// TODO Auto-generated method stub
 		super.postHandle(request, response, handler, modelAndView);
 	}
 

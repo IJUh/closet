@@ -18,11 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import exception.InvalidRegisterAccessException;
-import exception.InvalidRegisterException;
 import model.Cloth;
-import model.ErrorCode;
-import model.ErrorResponse;
 import model.User;
 import service.ClothService;
 import service.LoginService;
@@ -41,29 +37,11 @@ public class RegisterController {
 	LoginService loginService;
 	
 	@Autowired
-	User user;
-	
-	/*@RequestMapping("/register.com/cloth")
-	public ModelAndView register(@RequestParam String user_id, @RequestParam String phone, @RequestParam String user_name) {
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("USER_ID", user_id);
-		mv.addObject("PHONE", phone);
-		mv.addObject("USER_NAME", user_name);
-		User user = new User();
-		user.setPhone(phone);
-		user.setUserId(user_id);
-		user.setUserName(user_name);
-		userService.setUserMapper(user);
-		mv.setViewName("main");
-		return mv;
-	}*/
+	User userModel;
 	
 	@RequestMapping(value="/cloth", method=RequestMethod.POST)
 	public ModelAndView register(@RequestParam String query) {
 		ModelAndView mv = new ModelAndView();
-		/*mv.addObject("USER_ID", user_id);
-		mv.addObject("PHONE", phone);
-		mv.addObject("USER_NAME", user_name);*/
 		Cloth cloth = new Cloth();
 		cloth.setItemNo(query);
 		clothService.setClothMapper(cloth);
@@ -72,21 +50,20 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value="/loginProcess", method=RequestMethod.POST)
-	public ModelAndView loginProcess(HttpSession session, User user, HttpServletResponse response) {
+	public ModelAndView loginProcess(HttpSession session, @ModelAttribute User user, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		
 		if(session.getAttribute("login") != null) {
-			//±âÁ¸ loginÀÌ¶õ ¼¼¼Ç °ªÀÌ Á¸ÀçÇÑ´Ù¸é
-			session.removeAttribute("login"); //±âÁ¸°ªÀ» Á¦°Å
+			//ê¸°ì¡´ ì„¸ì…˜ ì œê±°
+			session.removeAttribute("login");
 		}
+
+		userModel = loginService.login(user);
 		
-		//DBÀÇ ·Î±×ÀÎ À¯Àú Á¤º¸ ¹İÈ¯
-		User loginUser = loginService.login(user);
-		
-		if(loginUser != null) {
-			//·Î±×ÀÎ Á¤º¸ Á¸Àç ½Ã ¼¼¼Ç¿¡ ·Î±×ÀÎ Á¤º¸ ´ã±â
-			session.setAttribute("login", loginUser);
-			List<ArrayList> clothList = userService.getRegisterClothList(loginUser);
+		if(userModel != null) {
+			//ë¡œê·¸ì¸ ì •ë³´ ì¡´ì¬ ì‹œ ì„¸ì…˜ì— ë¡œê·¸ì¸ ì •ë³´ ë‹´ê¸°
+			session.setAttribute("login", userModel);
+			List<ArrayList> clothList = userService.getRegisterClothList(userModel);
 			mv.addObject("closthList", clothList);
 			mv.setViewName("main");
 		} else {
@@ -95,62 +72,20 @@ public class RegisterController {
 		return mv;
 	}
 	
-	/*@RequestMapping(value="/register/user", method=RequestMethod.POST)
-	public ModelAndView registerUser(HttpSession session, @RequestParam String user_id, @RequestParam String password,@RequestParam String phone, HttpServletResponse response) {
+	@RequestMapping(value="/register/user", method=RequestMethod.POST)
+	public ModelAndView registerUser(HttpSession session, @RequestBody String is_checked, @ModelAttribute User user, HttpServletResponse response) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		
-		user.setUserId(user_id);
-		user.setPassword(password);
-		user.setPhone(phone);
-		userService.setUserMapper(user);
-		
-		int login = loginService.Register(user);
-		
-		if(login != -1) {
-			mv.setViewName("sign_up");
-		} else {
-
+		//ì„œë¹„ìŠ¤ë‹¨ìœ¼ë¡œ ë„˜ê²¨ì¤˜ì„œ ì •ë¦¬
+		int register = loginService.Register(is_checked, user);
+		if(register == 1) {
+			userModel = loginService.login(user);
 			if(session.getAttribute("login") != null) {
 				session.removeAttribute("login");
 			}
-			//·Î±×ÀÎ Á¤º¸ Á¸Àç ½Ã ¼¼¼Ç¿¡ ·Î±×ÀÎ Á¤º¸ ´ã±â
-			
-
-			User loginUser = loginService.login(user);
-			
-			session.setAttribute("login", loginUser);
+			session.setAttribute("login", userModel);
 			mv.setViewName("main");
-			
-		}
-		
-		return mv;
-	}*/
-	
-	@RequestMapping(value="/register/user", method=RequestMethod.POST)
-	public ModelAndView registerUser(HttpSession session, @RequestParam String is_checked, @ModelAttribute User user, HttpServletResponse response) throws Exception {
-		ModelAndView mv = new ModelAndView();
-
-		//Áßº¹ Ã¼Å©¸¦ ÇßÀ¸¸é µî·Ï
-		if("1".equals(is_checked)) {
-			int login = loginService.Register(user);
-			
-			//µî·ÏÇÏÁö ¸øÇßÀ¸¸é ¿¡·¯
-			if(login > 0) {
-				throw new InvalidRegisterException("½Ã½ºÅÛ ³»ºÎ »çÁ¤À¸·Î È¸¿ø°¡ÀÔÇÏÁö ¸ø Çß½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.",ErrorCode.SIGN_UP_INPUT_INVALID);
-			}
-			else {
-				if(session.getAttribute("login") != null) {
-					session.removeAttribute("login");
-				}
-				//·Î±×ÀÎ Á¤º¸ Á¸Àç ½Ã ¼¼¼Ç¿¡ ·Î±×ÀÎ Á¤º¸ ´ã±â
-				User loginUser = loginService.login(user);
-				
-				session.setAttribute("login", loginUser);
-				mv.setViewName("main");
-			}
 		} else {
-			//¾ÆÀÌµğ Áßº¹È®ÀÎ ¹Ì½ÇÇà ÈÄ µî·Ï Àß¸øµÈ Á¢±Ù¹æ½ÄÀ¸·Î ¿À·ù Ã³¸®
-			throw new InvalidRegisterAccessException("¾ÆÀÌµğ Áßº¹È®ÀÎ ÈÄ È¸¿ø°¡ÀÔ °¡´ÉÇÕ´Ï´Ù.",ErrorCode.SIGN_UP_ACCESS_INVALID);
+			mv.setViewName("redirect:/");
 		}
 		return mv;
 	}
@@ -163,20 +98,13 @@ public class RegisterController {
 		String check = userService.checkDuplicateUser(user);
 		
 		if("0".equals(check)) {
-			//Áßº¹ À¯Àú°¡ ¾øÀ¸¸é
-			resultMap.put("message","ÇØ´ç ¾ÆÀÌµğ´Â »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+			//ì¤‘ë³µ ìœ ì €ê°€ ì—†ìœ¼ë©´
+			resultMap.put("message","í•´ë‹¹ ì•„ì´ë””ëŠ” ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 		} else {
-			resultMap.put("message","Áßº¹µÈ ¾ÆÀÌµğÀÔ´Ï´Ù.");
+			resultMap.put("message","ì¤‘ë³µëœ ì•„ì´ë””ì…ë‹ˆë‹¤.");
 			
 		}
 		return resultMap;
 	}
-	
-	/*@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(MyBadDataException.class)
-	@ResponseBody ErrorInfo
-	handleBadRequest(HttpServletRequest req, Exception ex) {
-	    return new ErrorInfo(req.getRequestURL(), ex);
-	} */
 	
 }

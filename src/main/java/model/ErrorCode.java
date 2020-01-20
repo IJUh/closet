@@ -18,9 +18,8 @@ public enum ErrorCode {
     SIGN_UP_ACCESS_INVALID(400, "M003", "Sign up Access is Denied"),
     SIGN_UP_INPUT_INVALID(400, "M004", "Sign up Input is Denied"),
 
-    // Coupon
-    COUPON_ALREADY_USE(400, "CO001", "Coupon was already used"),
-    COUPON_EXPIRE(400, "CO002", "Coupon was already expired")
+    // ITEM
+    ITEM_NO_ALREADY_REGISTER(999, "IT001", "Item is already registered"),
     ;
     private final @Getter String code;
     

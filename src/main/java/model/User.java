@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 //@Alias("User")
 public class User {
-	private String userId; // 회원번호
-	private String loginStatus; // 로그인상태
-	private String password; // 비밀번호
-	private String deleted; // 삭제여부
-	private String email; // 이메일
-	private String phone; // 전화번호
-	private String userName;// 이름
-	private Timestamp rgstDate; // 등록일
+	private String userId; 
+	private String loginStatus;
+	private String password;
+	private String deleted; 
+	private String email; 
+	private String phone; 
+	private String userName;
+	private Timestamp rgstDate;
 
 	public String getUserId() {
 		return userId;

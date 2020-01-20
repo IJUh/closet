@@ -20,8 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import model.ErrorCode;
 import model.ErrorResponse;
 /**
- * °¢Á¾ ¿¹¿Ü¸¦ Ã³¸®ÇÏ´Â ¸Ş¼­µå¸¦ ¸ğÀº Å¬·¡½º
- * »ç¿ë ¹æ¹ı:
+ * ê°ì¢… ì˜ˆì™¸ë¥¼ ì²˜ë¦¬í•˜ëŠ” ë©”ì„œë“œë¥¼ ëª¨ì€ í´ë˜ìŠ¤
+ * ì‚¬ìš© ë°©ë²•:
  * @author  Uh ImJoo
  * @version 1.0
  */
@@ -29,7 +29,11 @@ import model.ErrorResponse;
 @Slf4j
 public class GlobalExceptionHandler {
 	
-   
+    /**
+     *  javax.validation.Valid or @Validated ìœ¼ë¡œ binding error ë°œìƒì‹œ ë°œìƒí•œë‹¤.
+     *  HttpMessageConverter ì—ì„œ ë“±ë¡í•œ HttpMessageConverter binding ëª»í• ê²½ìš° ë°œìƒ
+     *  ì£¼ë¡œ @RequestBody, @RequestPart ì–´ë…¸í…Œì´ì…˜ì—ì„œ ë°œìƒ
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
     	log.error("handleMethodArgumentNotValidException", e);
@@ -37,7 +41,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    
+    /**
+     * controllerì—ì„œ ëª¨ë¸ ê°ì²´ë¡œ ë°”ì¸ë”©í•  ë•Œ íƒ€ì…ì´ ë‹¤ë¥´ê±°ë‚˜ í˜•ì‹ì´ ì˜ ëª» ëì„ ë•Œ ë°œìƒ
+     * @ModelAttribut ìœ¼ë¡œ binding error ë°œìƒì‹œ BindException ë°œìƒí•œë‹¤.
+     * ref https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-modelattrib-method-args
+     */
     @ExceptionHandler(BindException.class)
     protected ResponseEntity<ErrorResponse> handleBindException(BindException e) {
     	log.error("handleBindException", e);
@@ -45,7 +53,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-   
+    /**
+     * enum type ì¼ì¹˜í•˜ì§€ ì•Šì•„ binding ëª»í•  ê²½ìš° ë°œìƒ
+     * ì£¼ë¡œ @RequestParam enumìœ¼ë¡œ binding ëª»í–ˆì„ ê²½ìš° ë°œìƒ
+     */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
     	log.error("handleMethodArgumentTypeMismatchException", e);
@@ -54,7 +65,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * post È£Ãâ ¹æ½Ä¿¡ ´ëÇÑ Àß¸øµÈ Á¢±Ù µî Áö¿øÇÏÁö ¾ÊÀº HTTP method È£Ãâ ÇÒ °æ¿ì ¹ß»ı
+     * post í˜¸ì¶œ ë°©ì‹ì— ëŒ€í•œ ì˜ëª»ëœ ì ‘ê·¼ ë“± ì§€ì›í•˜ì§€ ì•Šì€ HTTP method í˜¸ì¶œ í•  ê²½ìš° ë°œìƒ
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     protected ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
@@ -64,7 +75,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Authentication °´Ã¼°¡ ÇÊ¿äÇÑ ±ÇÇÑÀ» º¸À¯ÇÏÁö ¾ÊÀº °æ¿ì ¹ß»ıÇÕ
+     * Authentication ê°ì²´ê°€ í•„ìš”í•œ ê¶Œí•œì„ ë³´ìœ í•˜ì§€ ì•Šì€ ê²½ìš° ë°œìƒí•©
      */
     @ExceptionHandler(AccessDeniedException.class)
     protected ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException e) {
@@ -74,7 +85,7 @@ public class GlobalExceptionHandler {
     }
     
     /**
-     * ºñÁî´Ï½º¸¦ Ã³¸®ÇÏ´Â °úÁ¤¿¡¼­ ¹ß»ıÇÏ´Â ¿¹¿Ü¸¦ Ã³¸®ÇÏ±â À§ÇÔ(Custom Exception)
+     * ë¹„ì¦ˆë‹ˆìŠ¤ë¥¼ ì²˜ë¦¬í•˜ëŠ” ê³¼ì •ì—ì„œ ë°œìƒí•˜ëŠ” ì˜ˆì™¸ë¥¼ ì²˜ë¦¬í•˜ê¸° ìœ„í•¨(Custom Exception)
      */
     @ExceptionHandler(BusinessException.class)
     protected ResponseEntity<ErrorResponse> handleBusinessException(final BusinessException e) {
@@ -93,8 +104,8 @@ public class GlobalExceptionHandler {
 	}
 	
 	/**
-     * SQLExceptionÀ» Ã³¸®ÇÏ±â À§ÇÑ ¿¹¿ÜÃ³¸® ÇÚµé·¯
-     * »óÀ§ Å¬·¡½º Exceptionº¸´Ù ¿ì¼± Ã³¸®ÇÏ±â À§ÇØ¼± order¸¦ ÁöÁ¤
+     * SQLExceptionì„ ì²˜ë¦¬í•˜ê¸° ìœ„í•œ ì˜ˆì™¸ì²˜ë¦¬ í•¸ë“¤ëŸ¬
+     * ìƒìœ„ í´ë˜ìŠ¤ Exceptionë³´ë‹¤ ìš°ì„  ì²˜ë¦¬í•˜ê¸° ìœ„í•´ì„  orderë¥¼ ì§€ì •
      */
 	@ExceptionHandler({SQLException.class,DataAccessException.class})
 	@Order(Ordered.HIGHEST_PRECEDENCE)

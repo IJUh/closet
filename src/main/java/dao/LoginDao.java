@@ -1,4 +1,4 @@
-package service.impl;
+package dao;
 
 public class LoginDao {
 

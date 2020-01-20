@@ -2,23 +2,42 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.closet.closet.mapper.ClothMapper">
+<mapper namespace="com.closet.mapper.ClothMapper">
 
 	<resultMap id="ClothMap" type="Cloth">
 		<result property="itemNo" column="ITEM_NO"/>	
-		<result property="comItemNo" column="COM_ITEM_NO"/>
+		<result property="comItemNo" column="COM_ITEM_NO"/>	
+		<result property="companyNo" column="COMPANY_NO"/>	
+		<result property="price" column="PRICE"/>
+		<result property="category" column="CATEGORY"/>
+		<result property="clothName" column="CLOTH_NAME"/>
 	</resultMap>
-
-	<insert id="insertCloth" parameterType="Cloth">
+	
+	<insert id="insertItem" parameterType="Cloth">
 		<selectKey resultType="string" keyProperty="itemNo" order="BEFORE">
         	SELECT TO_CHAR(SYSDATE,'YYYY') || #{comItemNo}  FROM CLOTH        
     	</selectKey>  
-  		INSERT INTO
-  			CLOTH
-  			(COM_ITEM_NO
+  		INSERT 
+  		  INTO CLOTH
+  			(
+  			   ITEM_NO
+  			 , COM_ITEM_NO
+  			 , COMPANY_NO
+  			 , PRICE
+  			 , CATEGORY
   			) VALUES  
-  			(#{comItemNo}
+  			(
+  			   #{itemNo}
+  			 , #{comItemNo}
+  			 , #{companyNo}
+  			 , #{price}
+  			 , #{category}
   			)
   	</insert>
+  	
+  	<select id="selectCompanyItemNo" parameterType="String" resultMap="ClothMap" >
+		SELECT * FROM CLOTH
+		 WHERE COM_ITEM_NO = #{comItemNo}
+	</select>
   	
 </mapper>
