@@ -19,6 +19,3 @@
 - 개발하며 얻은 지식 및 오류 내용 정리 : http://blog.naver.com/here_ij1130
 - 알고리즘 : https://github.com/IJUh/Algorithm(1일 1문제 목표)
 - 난이도를 점차 높이려 노력 중
-
-진행단계 
-- 이번주 : mvc패턴 적용 및 단계별 TDD작성
