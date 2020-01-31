@@ -7,6 +7,7 @@ import dao.UserDao;
 import exception.InvalidRegisterAccessException;
 import exception.InvalidRegisterException;
 import model.ErrorCode;
+import model.GoogleJWT;
 import model.User;
 import service.LoginService;;
 
@@ -36,4 +37,16 @@ public class LoginServiceImpl implements LoginService {
 			throw new InvalidRegisterAccessException("아이디 중복확인 후 회원가입 가능합니다.", ErrorCode.SIGN_UP_ACCESS_INVALID);
 		}
 	}
+
+	@Override
+	public int getGoogleUserInfo(GoogleJWT googleJwt) {
+		// TODO Auto-generated method stub
+		return userDao.getGoogleUserInfo(googleJwt);
+	}
+	@Override
+	public void registerGoogleUserInfo(String tokens) {
+		userDao.registerGoogleUserInfo(tokens);
+	}
+
+
 }

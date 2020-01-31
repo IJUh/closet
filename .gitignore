@@ -37,3 +37,6 @@ hs_err_pid*
 
 #java
 ErrorResponse.java
+
+#properties
+google-auth.properties

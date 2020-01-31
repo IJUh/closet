@@ -15,15 +15,16 @@
         http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-		<context:property-placeholder location="/WEB-INF/*.properties" />
         <mvc:annotation-driven/>
 		<mvc:default-servlet-handler />
-
+		
+		<context:property-placeholder location="classpath:config/other/google-auth.properties"/>
 		
     	<!-- Component Scan -->
         <context:component-scan base-package="controller"/>
         <context:component-scan base-package="service"/>
         <context:component-scan base-package="model"/>
+        <context:component-scan base-package="dao"/>
         
         <bean id="ViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
             <property name="prefix" value="/WEB-INF/pages/"/>

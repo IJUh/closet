@@ -13,6 +13,22 @@
 		<result property="password" column="PASSWORD"/>		
 	</resultMap>
 	
+	<resultMap id="GoogleAuth" type="GoogleJWT">
+		<result property="iss" column="ISS"/>
+		<result property="azp" column="AZP"/>
+		<result property="aud" column="AUD"/>
+		<result property="sub" column="SUB"/>
+		<result property="at_hash" column="AT_HASH"/>
+		<result property="hd" column="HD"/>
+		<result property="email" column="EMAIL"/>		
+		<result property="email_verifired" column="EMAIL_VERIFIRED"/>		
+		<result property="iat" column="IAT"/>		
+		<result property="exp" column="EXP"/>			
+		<result property="nonce" column="NONCE"/>			
+		<result property="name" column="NAME"/>			
+		<result property="profile" column="PROFILE"/>				
+	</resultMap>
+	
 	<resultMap id="ClothMap" type="Cloth">
 		<result property="itemNo" column="ITEM_NO"/>	
 		<result property="comItemNo" column="COM_ITEM_NO"/>
@@ -58,5 +74,30 @@
   	<select id="getClothList" parameterType="String" resultMap="ClothMap" >
 		SELECT * FROM CLOTH_TRACK
 			WHERE USER_ID = #{userId}
+	</select>
+	
+	<insert id="registerGoogleUserInfo" parameterType="GoogleJWT">
+		INSERT INTO USERINFO
+  			(
+  			  USER_ID
+  			, PASSWORD
+  			, PHONE
+  			, DELETED_YN
+  			, E_MAIL
+  			) VALUES  
+  			(
+  			 #{EMAIL, jdbcType=VARCHAR}
+  			,#{AZP, jdbcType=VARCHAR}
+  			,#{PROFILE, jdbcType=VARCHAR}
+  			,'N'
+  			, #{EMAIL, jdbcType=VARCHAR}
+  			)
+	</insert>
+	
+	<select id="getGoogleUserInfo" parameterType="GoogleJWT" resultMap="UserMap">
+		SELECT USER_ID
+		     , E_MAIL
+		  FROM USERINFO
+		 WHERE USER_ID = #{sub}
 	</select>
 </mapper>

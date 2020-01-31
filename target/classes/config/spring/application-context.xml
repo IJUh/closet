@@ -15,7 +15,7 @@
         <!-- <property name="url" value="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCPS)(HOST=adb.ap-seoul-1.oraclecloud.com)(PORT=1522))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=dbadw_high)))"/>
          --><property name="url" value="jdbc:oracle:thin:@dbadw_high?TNS_ADMIN=C:\\Closet\\closet\\src\\main\\resources\\Wallet_DBADW"/>
         <property name="username" value="admin"/>
-        <property name="password" value="dhfkzmf@Dighkdus1!"/>
+        <property name="password" value="vlwkdhkdQlwkzld1@"/>
 	</bean>
 
     <bean id="sqlSessionFactory"
