@@ -43,13 +43,6 @@ public class GoogleAuthServiceImpl implements AuthService {
 	@Inject
 	GoogleJWT googleJwt;
 	
-	/*@Autowired
-	GoogleJWT gg;
-	
-	public void setGg(GoogleJWT gg) {
-		this.gg = gg;
-	}*/
-
 	@Override
 	public String authLogin(HttpServletResponse response, HttpServletRequest request) {
 		// Create a state token to prevent request forgery.
@@ -122,11 +115,6 @@ public class GoogleAuthServiceImpl implements AuthService {
         }
         
         return 1;
-		/*
-		 * if(login.getGoogleUserInfo(result.get("azp")) == 1) {
-		 * request.getSession().setAttribute("idToken", tokens); } else { //new user
-		 * register login.registerGoogleUserInfo(result.get("azp")); }
-		 */
 	}
 
 	private void getGoogleAuthInfo(Map<String, Object> responseMap) throws UnsupportedEncodingException, JsonMappingException, JsonProcessingException, DecoderException {
@@ -146,14 +134,5 @@ public class GoogleAuthServiceImpl implements AuthService {
 		googleJwt.setSub(result.get("sub"));
 		googleJwt.setEmail(result.get("email"));
 		
-		/*Map<String,Object> jwt = new HashMap<String, Object>();
-		Base64 base64 = new Base64(true);
-		JSONObject json = (JSONObject) base64.decode(responseMap.get("id_token"));
-        //String[] tokens = ((String)responseMap.get("id_token")).split("\\.");
-*/
-        //Jackson을 사용한 JSON을 자바 Map 형식으로 변환
-        //ObjectMapper mapper = new ObjectMapper();
-        //Map<String, String> result = mapper.readValue(new JsonParser(responseMap.get("id_token")), Map.class);
 	}
-
 }
