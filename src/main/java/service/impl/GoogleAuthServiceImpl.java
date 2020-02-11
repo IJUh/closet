@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
@@ -45,11 +43,10 @@ public class GoogleAuthServiceImpl implements AuthService {
 	GoogleJWT googleJwt;
 
 	@Override
-	public String authLogin(HttpServletResponse response, HttpServletRequest request) {
+	public String authLogin() {
 		// Create a state token to prevent request forgery.
 		// Store it in the session for later validation.
 		String state = new BigInteger(130, new SecureRandom()).toString(32);
-		request.getSession().setAttribute("state", state);
 		
 		final String servletURL = googleAuthProperties.getAccountUrl();
 		final String clientId = googleAuthProperties.getClientId();
@@ -72,8 +69,7 @@ public class GoogleAuthServiceImpl implements AuthService {
 		return builder.toUriString();
 	}
 
-	public int siginIn(HttpServletResponse response, HttpServletRequest request) throws JsonMappingException, UnsupportedEncodingException, JsonProcessingException, DecoderException {
-		String code = request.getParameter("code");
+	public GoogleJWT siginIn(String code) throws JsonMappingException, UnsupportedEncodingException, JsonProcessingException, DecoderException {
 		final String servletURL = googleAuthProperties.getAuthUrl();
 		final String clientId = googleAuthProperties.getClientId();
 		final String clientSecret = googleAuthProperties.getClientSecret();
@@ -107,13 +103,7 @@ public class GoogleAuthServiceImpl implements AuthService {
 		// 1. 존재하면 application session을 google API에서 받은 정보로 시작한다.
 		// 2. 존재하지 않으면 회원가입창으로 이동
 		
-		if (loginService.getGoogleUserInfo(googleJwt) != 1) {
-			return -1;
-		} else {
-			request.getSession().setAttribute("id_token", (String) responseMap.get("id_token"));
-		}
-		
-		return 1;
+		return googleJwt;
 	}
 	
 	private void getGoogleAuthInfo(Map<String, Object> responseMap) throws UnsupportedEncodingException, JsonMappingException, JsonProcessingException, DecoderException {

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestClientException;
 
+import model.GoogleJWT;
 import service.LoginService;
 import service.impl.GoogleAuthServiceImpl;
 
@@ -27,23 +28,33 @@ public class AuthorizeController {
 	@Inject
 	GoogleAuthServiceImpl googleAuthService;
 
+	@Inject
+	GoogleJWT googleJwt;
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String authLogin(HttpServletResponse response, HttpServletRequest request, Model model) {
 
 		// 구글auth api 생성
-		String url = googleAuthService.authLogin(response, request);
+		String url = googleAuthService.authLogin();
 		model.addAttribute("google_url", url);
+
+		String[] state = url.split("state");
+		request.getSession().setAttribute("state", state[0]);
 
 		return "/login";
 	}
 
 	@RequestMapping(value = "/googleSiginIn/auth", method = RequestMethod.GET, produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public String sendAuthenticationRequest(HttpServletResponse response, HttpServletRequest request) throws IOException, RestClientException, URISyntaxException, DecoderException {
-        int loginStatus = googleAuthService.siginIn(response, request);
-        if(loginStatus == 1) {
-        	return "redirect:/main";
-        } else {
-        	return "redirect:/register";
-        }
+		String code = request.getParameter("code");
+		googleJwt = googleAuthService.siginIn(code);
+
+		if (login.getGoogleUserInfo(googleJwt) != 1) {
+			return "redirect:/register";
+		} else {
+			request.getSession().setAttribute("id_token", (String) googleJwt.getAzp());
+			return "redirect:/main";
+		}
+		
 	}
 }
