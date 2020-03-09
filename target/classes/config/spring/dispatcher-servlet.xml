@@ -41,7 +41,6 @@
     	<mvc:interceptors>
     		<mvc:interceptor> 
     		<mvc:mapping path="/**"/> 
-    		<mvc:exclude-mapping path="/loginProcess"/>
     		<bean class="interceptor.AuthenticationInterceptor"/> 
     		</mvc:interceptor>
     	</mvc:interceptors>	
